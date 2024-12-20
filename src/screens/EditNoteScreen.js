@@ -7,8 +7,8 @@ const EditNoteScreen = props => {
   const {route, navigation} = props;
   const id = route.params.id;
   const [dataToUpdate, setDataToUpdate] = useState([]);
-  const [newNote, setNewNote] = useState(''); // Untuk menyimpan catatan yang baru
-  const [isEdit, setIsEdit] = useState(false); // Untuk status edit
+  const [newNote, setNewNote] = useState('');
+  const [isEdit, setIsEdit] = useState(false);
 
   const saveNote = value => {
     if (value === '') {
@@ -29,7 +29,6 @@ const EditNoteScreen = props => {
     }
   };
 
-  // Fungsi untuk format tanggal
   const dateFormat = date => {
     const months = [
       'January',
@@ -53,18 +52,16 @@ const EditNoteScreen = props => {
     return months[monthOnly] + ' ' + dateOnly + ', ' + yearOnly;
   };
 
-  // Fungsi untuk mengedit catatan dan mengubah status edit
   const editNote = (value, editStatus) => {
     setNewNote(value);
     setIsEdit(editStatus);
   };
 
-  // Mengambil data dari Realm berdasarkan ID
   useEffect(() => {
     const data = realm.objects('Note').filtered(`id = ${id}`);
     if (data.length > 0) {
       setDataToUpdate(data);
-      setNewNote(data[0].note); // Mengisi data awal untuk diedit
+      setNewNote(data[0].note);
     }
   }, [id]);
 
